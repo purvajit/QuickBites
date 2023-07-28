@@ -229,167 +229,179 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-    {% block js %}
-    <script>
-        function setCartNo(cart) {
-            let total = 0;
-            for (items in cart) {
-                total += cart[items][0]
-            }
-            $("[data-cart_no]").html(total);
-        }
-        console.log('working');
-        if (localStorage.getItem("cart") == undefined) {
-            var cart = {};
-            $('[data-cat_no]').html(0);
-        }
-        else {
-            cart = JSON.parse(localStorage.getItem('cart'));
-            setCartNo(cart);
-        }
-        populateCart();
-
-        $('.cart').click(function () {
-            console.log('clicked');
-
-
-            var idstr = this.id.toString();
-            console.log(idstr);
-            // if (cart[idstr] != undefined) {
-            //     cart[idstr] = cart[idstr] + 1
-            // }
-            // else {
-            //     cart[idstr] = 1
-            // }
-            //
-            if (cart[idstr] != undefined) {
-                cart[idstr][0] = cart[idstr][0] + 1;
-            } else {
-                // alert(idstr);
-                qty = 1;
-                name = $('#dish-' + idstr).html();
-                price = $('#dish-price-' + idstr).html();
-                console.log(name);
-                cart[idstr] = [qty, name, parseInt(price)];
-                console.log(cart[idstr]);
-
-            }
-            //
-            console.log(cart);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            console.log('done');
-            setCartNo(cart);
-            $('#cart-body').empty();
-            populateCart();
-        })
-
-
-        function cartIncItem(index) {
-            // cart fetch,
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            cart[index][0] = cart[index][0] + 1;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            // update
-            $("#cart-item-" + index).html(cart[index][0])
-        }
-        function cartDecItem(index) {
-            // cart fetch,
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            cart[index][0] = cart[index][0] - 1;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            // update
-            $("#cart-item-" + index).html(cart[index][0])
-        }
-
-
-
-        function createCard(index, name, price, quantity) {
-
-            let p = document.createElement('div');
-            p.innerHTML = price;
-            let n = document.createElement('div');
-            n.classList = 'card-title';
-            n.innerHTML = name;
-
-            let plus = document.createElement('button');
-            plus.classList = 'btn btn-warning p-2';
-            plus.innerHTML = '+';
-            plus.addEventListener('click', () => cartIncItem(index))
-
-            let minus = document.createElement('button');
-            minus.classList = 'btn btn-warning p-2';
-            minus.innerHTML = '-';
-            minus.addEventListener('click', () => cartDecItem(index))
-
-
-            let quant = document.createElement('text');
-            quant.classList = 'm-3';
-            quant.id = "cart-item-" + index
-            quant.innerHTML = quantity;
-
-            let q = document.createElement('div');
-            q.classList = 'card-text';
-            q.append(minus);
-            q.append(quant);
-            q.append(plus);
-
-
-
-
-            let card = document.createElement('div');
-            card.classList = "card card-body m-2";
-
-            card.append(n);
-            card.append(q);
-            card.append(p);
-            return card
-        }
-        function populateCart() {
-            $('#cart-body').empty();
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            if (cart != undefined) {
-                for (let index in cart) {
-                    let item = cart[index]
-                    let card = createCard(index, item[1], item[2], item[0]);
-                    $('#cart-body').append(card);
+        {% block js %}
+        <script>
+            function setCartNo(cart) {
+                let total = 0;
+                for (items in cart) {
+                    total += cart[items][0]
                 }
-                let contain = document.createElement('div');
-                contain.classList = 'position-relative';
-
-                let clear = document.createElement('button');
-                clear.classList = 'clear_cart btn btn-warning position-absolute start-0';
-                clear.innerText = 'Clear Cart';
-                clear.addEventListener('click', () => clearCart())
-                let checkout = document.createElement('button');
-                checkout.classList = 'btn btn-warning position-absolute end-0';
-                checkout.innerText = 'Check Out';
-                contain.append(clear);
-                contain.append(checkout);
-                $('#cart-body').append(contain);
+                $("[data-cart_no]").html(total);
             }
-            else{
-                console.log('empty')
-                let card = document.createElement('div');
-                card.classList = "container text-secondary text-center pt-5 mt-5";
-                card.innerHTML="<h2>Empty<h2>"
-                $('#cart-body').append(card);
-                
-
+            console.log('working');
+            if (localStorage.getItem("cart") == undefined) {
+                var cart = {};
+                $('[data-cat_no]').html(0);
             }
-        }
-
-        function clearCart() {
-            console.log('cleared');
-            localStorage.clear();
+            else {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                setCartNo(cart);
+            }
             populateCart();
-        }
-
-
-
-    </script>
-
-    {% endblock %}
-
+    
+            $('.cart').click(function () {
+                console.log('clicked');
+    
+    
+                var idstr = this.id.toString();
+                console.log(idstr);
+                // if (cart[idstr] != undefined) {
+                //     cart[idstr] = cart[idstr] + 1
+                // }
+                // else {
+                //     cart[idstr] = 1
+                // }
+                //
+                if (cart[idstr] != undefined) {
+                    cart[idstr][0] = cart[idstr][0] + 1;
+                } else {
+                    // alert(idstr);
+                    qty = 1;
+                    name = $('#dish-' + idstr).html();
+                    price = $('#dish-price-' + idstr).html();
+                    console.log(name);
+                    cart[idstr] = [qty, name, parseInt(price)];
+                    console.log(cart[idstr]);
+    
+                }
+                //
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                console.log('done');
+                setCartNo(cart);
+                populateCart();
+            })
+    
+    
+            function cartIncItem(index) {
+                // cart fetch,
+                let cart = JSON.parse(localStorage.getItem('cart'));
+                cart[index][0] = cart[index][0] + 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                // update
+                $("#cart-item-" + index).html(cart[index][0])
+                setCartNo();
+    
+            }
+            function cartDecItem(index) {
+                // cart fetch,
+                let cart = JSON.parse(localStorage.getItem('cart'));
+                cart[index][0] = cart[index][0] - 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                // update
+                if(cart[index][0]===0){
+                    console.log('0')
+                    delete(cart[index])
+                    if(Object.keys(cart).length==0){
+                        localStorage.removeItem('cart');
+                    }
+                    else{
+                    localStorage.setItem('cart', JSON.stringify(cart));}
+                    populateCart();
+                }
+                else{
+                $("#cart-item-" + index).html(cart[index][0])}
+                setCartNo();
+            }
+    
+    
+    
+            function createCard(index, name, price, quantity) {
+    
+                let p = document.createElement('div');
+                p.innerHTML = price;
+                let n = document.createElement('div');
+                n.classList = 'card-title';
+                n.innerHTML = name;
+    
+                let plus = document.createElement('button');
+                plus.classList = 'btn btn-warning p-2';
+                plus.innerHTML = '+';
+                plus.addEventListener('click', () => cartIncItem(index))
+    
+                let minus = document.createElement('button');
+                minus.classList = 'btn btn-warning p-2';
+                minus.innerHTML = '-';
+                minus.addEventListener('click', () => cartDecItem(index))
+    
+    
+                let quant = document.createElement('text');
+                quant.classList = 'm-3';
+                quant.id = "cart-item-" + index
+                quant.innerHTML = quantity;
+    
+                let q = document.createElement('div');
+                q.classList = 'card-text';
+                q.append(minus);
+                q.append(quant);
+                q.append(plus);
+    
+    
+    
+    
+                let card = document.createElement('div');
+                card.classList = "card card-body m-2";
+    
+                card.append(n);
+                card.append(q);
+                card.append(p);
+                return card
+            }
+            function populateCart() {
+                $('#cart-body').empty();
+                let cart = JSON.parse(localStorage.getItem('cart'));
+                if (cart != undefined) {
+                    for (let index in cart) {
+                        let item = cart[index]
+                        let card = createCard(index, item[1], item[2], item[0]);
+                        $('#cart-body').append(card);
+                    }
+                    let contain = document.createElement('div');
+                    contain.classList = 'position-relative';
+    
+                    let clear = document.createElement('button');
+                    clear.classList = 'clear_cart btn btn-warning position-absolute start-0';
+                    clear.innerText = 'Clear Cart';
+                    clear.addEventListener('click', () => clearCart())
+                    let checkout = document.createElement('button');
+                    checkout.classList = 'btn btn-warning position-absolute end-0';
+                    checkout.innerText = 'Check Out';
+                    contain.append(clear);
+                    contain.append(checkout);
+                    $('#cart-body').append(contain);
+                }
+                else{
+                    console.log('empty')
+                    let card = document.createElement('div');
+                    card.classList = "container text-secondary text-center pt-5 mt-5";
+                    card.innerHTML="<h2>Empty<h2>"
+                    $('#cart-body').append(card);
+                    
+    
+                }
+            }
+    
+            function clearCart() {
+                console.log('cleared');
+                localStorage.clear();
+                populateCart();
+            }
+    
+    
+    
+        </script>
+    
+        {% endblock %}
 </body>
 
 </html>
