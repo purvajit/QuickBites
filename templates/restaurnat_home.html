@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar sticky-top bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{%url 'index' %}">
+
+                <img src="https://svgsilh.com/svg/2085075.svg" alt="Logo" width="30" height="24"
+                    class="d-inline-block align-text-top ">
+                QuickBites
+            </a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="{% url 'restaurant_logout' %}">
+                        Logout
+                    </a>
+                </li>
+
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="#">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="#">
+                        Help
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1.5em"
+                            viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z" />
+                        </svg>
+                        {{restaurant.0.name}}
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="btn btn-warning" href="{% url 'add_dish' %}">
+                        Add New Dish
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+    </nav>
+
+
+
+
+
+
+
+    {% csrf_token %}
+    <div class="card text-bg-dark m-5" style="height:400px;">
+        <img src="/media/{{restaurant.0.image}}" class="object-fit-cover border rounded" alt="..."
+            style="height: 100%;">
+        <div class="card-img-overlay">
+            <h1 class="card-title mb-5">{{restaurant.0.name}}</h1>
+            <h5 class="card-text my-3">{{restaurant.0.email}}</h5>
+            <h5 class="card-text mb-3">{{restaurant.0.phone}}</h5>
+            <h5 class="card-text my-">{{restaurant.0.address}},{{restaurant.0.city}}</h5>
+            <p class="card-text" style="max-width:700px;">{{restaurant.0.description}}</p>
+        </div>
+    </div>
+
+    {%for i in dish%}
+    <div class="d-flex justify-content-center">
+        <div class="card mb-3 d-flex justify-content-center" style="width:70%;">
+            <img src="/media/{{i.image}}" class="card-img-top object-fit-cover" alt="..." height="200px; ">
+            <div class="card-body">
+                <h5 class="card-title">{{i.name}}</h5>
+                <p class="card-text">{{i.description}}</p>
+                <p class="card-text"><small class="text-body-secondary">{{i.price}}</small></p>
+                <!-- <a class="btn btn-warning" >Add to cart</a> -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal">
+                    Make changes
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

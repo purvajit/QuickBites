@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body{
+            font-family: 'Poppins',sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar sticky-top bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{%url 'index' %}">
+
+                <img src="https://svgsilh.com/svg/2085075.svg" alt="Logo" width="30" height="24"
+                    class="d-inline-block align-text-top ">
+                QuickBites
+            </a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="login/">
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="signup/">
+                        Sign Up
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="#">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a type="button" class="nav-link" href="#">
+                        Help
+                    </a>
+                </li>
+              </ul>
+        </div>
+    </nav>
+    <div class="alert alert-info alert-dismissible fade show m-0" role="alert">
+        <strong>Restaurant owners!</strong> access your dedicated restaurant management section <a href="restaurant_login/"
+            class="alert-link">here</a>. Give it a click if you like.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="card text-bg-dark m-5" style="height: 400px">
+        <img src="https://b.zmtcdn.com/mx-onboarding-hero87f77501659a5656cad54d98e72bf0d81627911821.webp"
+            class="object-fit-cover border rounded" alt="..." style="height: 400px;">
+        <div class="card-img-overlay">
+            <h3 class="card-title mb-5">Discover a World of Culinary Delights with QuickBites</h3>
+            <h5 class="card-text mb-3">Order Food Online and Indulge in a Seamless Dining Experience</h5>
+            <p class="card-text" style="max-width:700px;"><small> Welcome to QuickBites, your one-stop destination for
+                    convenient and delicious food delivery. Browse through a wide range of culinary options, from local
+                    favorites to international cuisines, all at your fingertips. With our easy-to-use platform, you can
+                    order your favorite dishes from the comfort of your home or office, and have them delivered straight
+                    to your doorstep.</small></p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-evenly"
+        style="height:500px;  background-image: url(https://printawallpaper.com/wp-content/uploads/2020/07/food_doodle_detail.jpg); background-repeat: no-repeat; background-size: cover;">
+        <div class="d-flex align-items-center ">
+            <div class="card text-center text-white "
+                style="width: 400px;  height: 300px; background-image: url(https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/88d55f7112efe55f.webp); background-repeat: no-repeat; background-size: cover;">
+                <div class="card-body">
+                    <h5 class="card-title m-4">Welcome back!</h5>
+                    <p class="card-text m-2" style="height: 100px;">Log in to your account to explore more, manage your
+                        preferences, and enjoy a seamless food ordering experience.</p>
+                    <a type="button" class="btn btn-warning" href="login/">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+
+            <div class="card text-center text-white "
+                style="width: 400px;  height: 300px; background-image: url(https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/711d51ca1b458931.webp); background-repeat: no-repeat; background-size: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title m-4">Join us today!</h5>
+                    <p class="card-text m-2" style="height: 100px;">Create an account to unlock exclusive benefits,
+                        faster ordering, personalized recommendations, and more.</p>
+                    <a href="signup/" class="btn btn-warning">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card text-bg-dark m-5 p-0" style="height: 350px;">
+        <img src="https://partner-with-us.swiggy.com/static/images/onBoard/swiggy/home-desktop.png" class="card-img-top-" alt="..." style="height: 350px; object-fit: cover;">
+        <div class="card-img-overlay">
+          <h2 class="card-title">Partner With us</h2>
+          <h4 class="card-text">If you're a restaurant owner looking to increase your customer base and offer your delicious dishes to a wider
+            audience, partner with our food delivery app today!</h4>
+          <p class="card-text"style="color: white;" ><small><p>Benefits of partnering with us:</p>
+            <ul>
+              <li>Access to a large user base</li>
+              <li>Increased visibility and brand exposure</li>
+              <li>Efficient delivery network</li>
+              <li>Seamless order management system</li>
+            </ul>
+        </small></p>
+        <a href="restaurant_login/"
+            class="btn btn-warning">Join Us</a>
+        </div>
+      </div>
+
+
+    <div class="d-flex justify-content-evenly m-5">
+        <div class="card" style="width: 18rem;">
+            <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_520,h_520/rng/md/carousel/production/ifi2lbzxeu1hvsqrsip3" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"><small>Hassle-free ordering experience with our user-friendly platform. Browse menus, customize your order, and track its progress, all from the convenience of your smartphone or computer.</small></p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_520,h_520/rng/md/carousel/production/awurei8ypqkafoqay9ym" class="card-img-top" alt="...">
+            <div class="card-body" style="height: 50px;">
+                <p class="card-text"><small>Explore a diverse menu featuring a wide range of culinary options. From local specialties to international cuisines, QuickBites offers something to satisfy every palate.</small></p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_520,h_520/rng/md/carousel/production/s5ug2key6e2sptaxku5v" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"><small>Experience reliable and timely delivery with QuickBites. Our dedicated delivery team ensures that your food arrives fresh and delicious, right at your doorstep, enjoy your meal without any delays.</small></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
