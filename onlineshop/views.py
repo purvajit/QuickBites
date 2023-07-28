@@ -260,4 +260,8 @@ def add_dish(request):
         form = DishForm()
     return render(request, 'add_dish.html', {'form': form})
 def checkout(request):
-    return HttpResponse('Checkout')
+    # return HttpResponse('Checkout')
+    context = {
+        'username': request.session['username'].capitalize(),
+    }
+    return render(request,'checkout.html',context)
