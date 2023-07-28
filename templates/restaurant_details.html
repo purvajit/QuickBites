@@ -299,8 +299,9 @@
                 clear.classList = 'clear_cart btn btn-warning position-absolute start-0';
                 clear.innerText = 'Clear Cart';
                 clear.addEventListener('click', () => clearCart())
-                let checkout = document.createElement('button');
+                let checkout = document.createElement('a');
                 checkout.classList = 'btn btn-warning position-absolute end-0';
+                checkout.href="{% url 'home' %}";
                 checkout.innerText = 'Check Out';
                 contain.append(clear);
                 contain.append(checkout);

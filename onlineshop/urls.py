@@ -18,7 +18,7 @@ urlpatterns = [
     # path('search/',views.search,name='search'),
     # path('restaurants/',views.restaurants,name='restaurants'),
     # path('cart/',views.cart,name='cart'),
-    # path('checkout/',views.checkout,name='checkout'),
+    path('checkout/',views.checkout,name='check out'),
     path('restaurants/', views.restaurant_detail, name='restaurant_detail'),
     path('admin/', admin.site.urls),
 ]

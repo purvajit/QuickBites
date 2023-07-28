@@ -259,3 +259,5 @@ def add_dish(request):
     else:
         form = DishForm()
     return render(request, 'add_dish.html', {'form': form})
+def checkout(request):
+    return HttpResponse('Checkout')
