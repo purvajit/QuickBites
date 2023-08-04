@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 
 # Create your views here.
 from django.contrib import messages
@@ -8,6 +8,11 @@ from .models import user,restaurant,city,dish
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from math import ceil
+from django.urls import path
+
+
+from django.contrib.auth.hashers import make_password
+
 
 def index(request):
     if 'username' in request.session:
@@ -259,9 +264,31 @@ def add_dish(request):
     else:
         form = DishForm()
     return render(request, 'add_dish.html', {'form': form})
+
+
 def checkout(request):
     # return HttpResponse('Checkout')
     context = {
         'username': request.session['username'].capitalize(),
     }
     return render(request,'checkout.html',context)
+
+
+
+
+def edit_dish(request, dish_id):
+    # Fetch the dish with dish_id=2
+    dish_instance = get_object_or_404(dish, pk=dish_id)
+
+    # If the request method is POST, process the form submission
+    if request.method == 'POST':
+        form = DishForm(request.POST, request.FILES, instance=dish_instance)
+        if form.is_valid():
+            form.save()
+            # Redirect to the dish detail view or any other appropriate page
+            return redirect('restaurant_home')
+    else:
+        # If it's a GET request, create the form and populate it with the dish data
+        form = DishForm(instance=dish_instance)
+
+    return render(request, 'edit_dish.html', {'form': form})

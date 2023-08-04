@@ -72,7 +72,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-        {% block js %}
+
+
+    {% block js %}
     <script>
         function setCartNo(cart) {
             let total = 0;
@@ -82,29 +84,27 @@
             $("[data-cart_no]").html(total);
         }
         console.log('working');
-        if (localStorage.getItem("cart") == undefined) {
-            var cart = {};
-            $('[data-cat_no]').html(0);
+        set_cart();
+        function set_cart() {
+            if (localStorage.getItem("cart") == undefined) {
+                var cart = {};
+                $('[data-cat_no]').html(0);
+                console.log('local')
+            }
+            else {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                setCartNo(cart);
+            }
+            populateCart();
+            return cart;
         }
-        else {
-            cart = JSON.parse(localStorage.getItem('cart'));
-            setCartNo(cart);
-        }
-        populateCart();
 
         $('.cart').click(function () {
             console.log('clicked');
 
-
+            var cart=set_cart();
             var idstr = this.id.toString();
             console.log(idstr);
-            // if (cart[idstr] != undefined) {
-            //     cart[idstr] = cart[idstr] + 1
-            // }
-            // else {
-            //     cart[idstr] = 1
-            // }
-            //
             if (cart[idstr] != undefined) {
                 cart[idstr][0] = cart[idstr][0] + 1;
             } else {
@@ -134,8 +134,7 @@
             // update
             // $("#cart-item-" + index).html(cart[index][0])
             populateCart();
-            setCartNo();
-
+            setCartNo(cart);
         }
         function cartDecItem(index) {
             // cart fetch,
@@ -151,14 +150,13 @@
                 }
                 else {
                     localStorage.setItem('cart', JSON.stringify(cart));
+
                 }
-                populateCart();
             }
-            else {
-                // $("#cart-item-" + index).html(cart[index][0])}
-                populateCart();
-                setCartNo();
-            }
+            // var cart=set_cart();
+            populateCart();
+            setCartNo(cart);
+
         }
 
 
@@ -166,7 +164,7 @@
         function createCard(index, name, price, quantity) {
 
             let p = document.createElement('div');
-            p.innerHTML = price;
+            p.innerHTML = "<i class='fa fa-rupee'></i>"+price;
             let n = document.createElement('div');
             n.classList = 'card-title';
             n.innerHTML = name;
@@ -199,7 +197,7 @@
             contain.classList = 'position-relative';
             let dish_total = document.createElement('text');
             dish_total.classList = 'position-absolute end-0 m-0';
-            dish_total.innerHTML = price * quantity;
+            dish_total.innerHTML = "<i class='fa fa-rupee'></i>"+price * quantity;
 
             contain.append(dish_total);
             contain.append(p);
@@ -225,12 +223,14 @@
                 let item = cart[index]
 
                 // let card = createCard(index, item[1], item[2], item[0]);
-                t = t + item[2]*item[0];
+                t = t + item[2] * item[0];
                 console.log(item[2])
                 // $('#cart-body').append(card);
             }
             return t;
         }
+
+
         function payandorder(){
             clearCart();
             alert('Ordered');
@@ -252,7 +252,7 @@
                 let final_total = document.createElement('div');
                 final_total.classList = 'mx-3';
                 // final_total.classList = 'position-absolute end-0';
-                final_total.innerHTML ='Total:  '+ total_amount;
+                final_total.innerHTML ='Total:  '+"<i class='fa fa-rupee'></i>"+total_amount;
                 total_contain.append(final_total);
                 $('#cart-body').append(total_contain);
                 
@@ -287,6 +287,9 @@
         function clearCart() {
             console.log('cleared');
             localStorage.clear();
+            empty = {};
+            empty[0] = [0, 0, 0];
+            setCartNo(empty);
             populateCart();
         }
 
@@ -295,7 +298,6 @@
     </script>
 
     {% endblock %}
-
 </body>
 
 </html>

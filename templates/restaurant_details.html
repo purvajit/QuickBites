@@ -87,10 +87,6 @@
                         <div class="offcanvas-body">
                             <div id="cart-body">
                             </div>
-                            <!-- <div class="position-relative">
-                                <button class="clear_cart btn btn-warning position-absolute start-0">Clear Cart</button>
-                                <a class="btn btn-warning position-absolute end-0">Check Out</a>
-                            </div> -->
                         </div>
                     </div>
                 </li>
@@ -115,12 +111,13 @@
     </div>
     {%for i in dish%}
     <div class="d-flex justify-content-center">
-        <div class="card mb-3 d-flex justify-content-center" style="width:70%;">
+        <div class="card mb-3 d-flex justify-content-center" style="width:50%;">
             <img src="/media/{{i.image}}" class="card-img-top object-fit-cover" alt="..." height="200px; ">
             <div class="card-body">
                 <h5 class="card-title" id='dish-{{i.id}}'>{{i.name}}</h5>
                 <p class="card-text">{{i.description}}</p>
-                <p class="card-text"><small class="text-body-secondary" id='dish-price-{{i.id}}'>{{i.price}}</small></p>
+                <p class="card-text"><i class="fa fa-rupee"></i><small class="text-body-secondary"
+                        id='dish-price-{{i.id}}'>{{i.price}}</small></p>
                 <!-- <a class="btn btn-warning" >Add to cart</a> -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -137,14 +134,23 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <img src="/media/{{i.image}}" class="img-thumbnail" alt="...">
+                            <div class="modal-body mx-3 p-2">
                                 {{i.description}}
                             </div>
+                            <div class="text-body-secondary mx-3 p-2">
+                                Spiciness:{{i.spiciness_Level}}
+                            </div>
+                            <p class="card-text mx-3 p-2"><i class="fa fa-rupee"></i>
+                                <small class="text-body-secondary ">{{i.price}}</small></p>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" id='{{i.id}}' class="btn btn-warning cart">Add to
                                     cart</button>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -167,29 +173,27 @@
             $("[data-cart_no]").html(total);
         }
         console.log('working');
-        if (localStorage.getItem("cart") == undefined) {
-            var cart = {};
-            $('[data-cat_no]').html(0);
+        set_cart();
+        function set_cart() {
+            if (localStorage.getItem("cart") == undefined) {
+                var cart = {};
+                $('[data-cat_no]').html(0);
+                console.log('local')
+            }
+            else {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                setCartNo(cart);
+            }
+            populateCart();
+            return cart;
         }
-        else {
-            cart = JSON.parse(localStorage.getItem('cart'));
-            setCartNo(cart);
-        }
-        populateCart();
 
         $('.cart').click(function () {
             console.log('clicked');
 
-
+            var cart = set_cart();
             var idstr = this.id.toString();
             console.log(idstr);
-            // if (cart[idstr] != undefined) {
-            //     cart[idstr] = cart[idstr] + 1
-            // }
-            // else {
-            //     cart[idstr] = 1
-            // }
-            //
             if (cart[idstr] != undefined) {
                 cart[idstr][0] = cart[idstr][0] + 1;
             } else {
@@ -197,7 +201,7 @@
                 qty = 1;
                 name = $('#dish-' + idstr).html();
                 price = $('#dish-price-' + idstr).html();
-                console.log(name);
+                console.log(price);
                 cart[idstr] = [qty, name, parseInt(price)];
                 console.log(cart[idstr]);
 
@@ -208,6 +212,7 @@
             console.log('done');
             setCartNo(cart);
             populateCart();
+            alert('Added to cart');
         })
 
 
@@ -219,8 +224,7 @@
             // update
             // $("#cart-item-" + index).html(cart[index][0])
             populateCart();
-            setCartNo();
-
+            setCartNo(cart);
         }
         function cartDecItem(index) {
             // cart fetch,
@@ -236,14 +240,13 @@
                 }
                 else {
                     localStorage.setItem('cart', JSON.stringify(cart));
+
                 }
-                populateCart();
             }
-            else {
-                // $("#cart-item-" + index).html(cart[index][0])}
-                populateCart();
-                setCartNo();
-            }
+            // var cart=set_cart();
+            populateCart();
+            setCartNo(cart);
+
         }
 
 
@@ -251,7 +254,7 @@
         function createCard(index, name, price, quantity) {
 
             let p = document.createElement('div');
-            p.innerHTML = price;
+            p.innerHTML = "<i class='fa fa-rupee'></i>" + price;
             let n = document.createElement('div');
             n.classList = 'card-title';
             n.innerHTML = name;
@@ -284,7 +287,7 @@
             contain.classList = 'position-relative';
             let dish_total = document.createElement('text');
             dish_total.classList = 'position-absolute end-0 m-0';
-            dish_total.innerHTML = price * quantity;
+            dish_total.innerHTML = "<i class='fa fa-rupee'></i>" + (price * quantity);
 
             contain.append(dish_total);
             contain.append(p);
@@ -310,7 +313,7 @@
                 let item = cart[index]
 
                 // let card = createCard(index, item[1], item[2], item[0]);
-                t = t + item[2]*item[0];
+                t = t + item[2] * item[0];
                 console.log(item[2])
                 // $('#cart-body').append(card);
             }
@@ -333,10 +336,10 @@
                 let final_total = document.createElement('div');
                 final_total.classList = 'mx-3';
                 // final_total.classList = 'position-absolute end-0';
-                final_total.innerHTML ='Total:  '+ total_amount;
+                final_total.innerHTML = 'Total:  ' + "<i class='fa fa-rupee'></i>" + total_amount;
                 total_contain.append(final_total);
                 $('#cart-body').append(total_contain);
-                
+
 
                 let contain = document.createElement('div');
                 contain.classList = 'position-relative';
@@ -367,8 +370,12 @@
         function clearCart() {
             console.log('cleared');
             localStorage.clear();
+            empty = {};
+            empty[0] = [0, 0, 0];
+            setCartNo(empty);
             populateCart();
         }
+
 
 
 
